@@ -1,0 +1,6 @@
+/core/music
+/core/include
+/core/build
+
+*.so
+*,o

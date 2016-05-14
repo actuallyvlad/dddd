@@ -1,0 +1,25 @@
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
+
+#include <string>
+#include <vector>
+
+class Player : public Entity {
+    public:
+        Player(unsigned int x, unsigned int y, unsigned int ch = '@', 
+            const TCODColor &color = colors::player, std::string name = "player", 
+            bool blocks = true, bool canDie = true, 
+            unsigned int fovRadius = 5, bool canExplore = true, 
+            double maxHp = 100, double hp = 100, double mp = 100, 
+            double atk = 5, double defense = 1, unsigned int spd = 1);
+        
+        ~Player() {};
+        
+        void update();
+        void die();
+    
+    protected:
+        bool moveOrAttack(unsigned int target_x, unsigned int target_y);
+};
+
+#endif
