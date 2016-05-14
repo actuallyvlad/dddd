@@ -30,7 +30,7 @@ Map::Map(unsigned int width, unsigned int height) :
         unsigned int x = rng->getInt(0, width - w - 1);
         unsigned int y = rng->getInt(0, height - h - 1);
         
-        rooms->push_back(Room(x, y, w, h, 0));
+        rooms->push_back(Room(x, y, w, h));
         
         bool overlap = false;
         size_t last = rooms->size() - 1;
@@ -44,7 +44,6 @@ Map::Map(unsigned int width, unsigned int height) :
         }
         
         if ( !overlap ) {
-            (*rooms)[num_rooms].number = num_rooms + 1;
             digRoom((*rooms)[num_rooms]);
             placeObjects((*rooms)[num_rooms]);
             

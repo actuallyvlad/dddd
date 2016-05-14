@@ -1,8 +1,8 @@
 #include "Room.hpp"
 
 Room::Room(unsigned int x, unsigned int y, unsigned int dx, 
-            unsigned int dy, unsigned int number) :
-    x(x), y(y), w(x + dx), h(y + dy), number(number) {
+            unsigned int dy) :
+    x(x), y(y), w(x + dx), h(y + dy) {
 }
 
 void Room::getCenter(unsigned int &cx, unsigned int &cy) {

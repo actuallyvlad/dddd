@@ -6,10 +6,9 @@ struct Room {
     unsigned int y;
     unsigned int w;
     unsigned int h;
-    unsigned int number;
     
     Room(unsigned int x, unsigned int y, unsigned int dx, 
-        unsigned int dy, unsigned int number);
+        unsigned int dy);
     void getCenter(unsigned int &x, unsigned int &y);
     bool intersects(Room other_room);
 };
