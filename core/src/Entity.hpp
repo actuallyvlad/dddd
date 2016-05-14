@@ -12,6 +12,7 @@ class Entity : public Object {
         bool canExplore;
         double maxHp;
         double hp;
+        double maxMp;
         double mp;
         double atk;
         double defense;
@@ -22,8 +23,8 @@ class Entity : public Object {
             const TCODColor &color, std::string name, bool blocks = true, 
             bool canDie = true, unsigned int fovRadius = 5, 
             bool canExplore = true, double maxHp = 100, double hp = 100, 
-            double mp = 100, double atk = 5, double defense = 1, 
-            unsigned int spd = 1);
+            double maxMp = 100, double mp = 100, double atk = 5, 
+            double defense = 1, unsigned int spd = 1);
         
         virtual ~Entity() {};
         

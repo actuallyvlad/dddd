@@ -4,10 +4,11 @@
 Entity::Entity(unsigned int x, unsigned int y, unsigned int ch, 
     const TCODColor &color, std::string name, bool blocks, bool canDie,
     unsigned int fovRadius, bool canExplore, double maxHp, 
-    double hp, double mp, double atk, double defense, unsigned int spd) :
+    double hp, double maxMp, double mp, double atk, double defense, 
+    unsigned int spd) :
     
     Object(x, y, ch, color, name, blocks), canDie(canDie), fovRadius(fovRadius), 
-    canExplore(canExplore), maxHp(maxHp), hp(hp), mp(mp), atk(atk), 
+    canExplore(canExplore), maxHp(maxHp), hp(hp), maxMp(maxMp), mp(mp), atk(atk), 
     defense(defense), spd(spd) {
 }
 
@@ -41,19 +42,28 @@ bool Entity::moveOrAttack(unsigned int x, unsigned int y) {
 }
 
 void Entity::attack(Entity &target) {
-    if (target.canDie && !target.isDead()) {
-        if (atk - target.defense > 0) {
-            //printf("%s attacks %s for %g hit points.\n", name, target.name,
-            //   power - target.defense);
+    unsigned int atkTimes = spd;
+    
+    while (atkTimes != 0) {
+        if (target.canDie && !target.isDead()) {
+            if (atk - target.defense > 0) {
+                engine.gui->message(TCODColor::white, {name, " attacks "s, target.name,
+                    " for "s, std::to_string( (int)(atk - target.defense) ), 
+                    " hit points.\n"s});
+            }
+            else {
+                engine.gui->message(TCODColor::white, {name, " attacks "s, target.name,
+                    " but it has no effect!\n"s});
+            }
+            
+            target.takeDamage(atk);
         }
         else {
-            //printf("%s attacks %s but it has no effect!\n", name, target.name);
+            engine.gui->message(TCODColor::white, {name, " attacks "s, target.name,
+                " in vain.\n"s});
         }
         
-        target.takeDamage(atk);
-    }
-    else {
-        //printf("%s attacks %s in vain.\n", name, target.name);
+        --atkTimes;
     }
 }
 

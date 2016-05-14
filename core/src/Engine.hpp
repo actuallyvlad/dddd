@@ -13,6 +13,7 @@ class Engine {
         
         unsigned int screenWidth;
         unsigned int screenHeight;
+        Gui *gui;
         TCOD_key_t lastKey;
         TCODList<Entity *> entities;
         Player *player;

@@ -2,7 +2,6 @@
 #define MAP_HPP
 
 #include <vector>
-#include <string>
 #include "Room.hpp"
 #include "Entity.hpp"
 

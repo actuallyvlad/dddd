@@ -7,11 +7,12 @@
 class Player : public Entity {
     public:
         Player(unsigned int x, unsigned int y, unsigned int ch = '@', 
-            const TCODColor &color = colors::player, std::string name = "player", 
+            const TCODColor &color = colors::player, std::string name = "Player", 
             bool blocks = true, bool canDie = true, 
             unsigned int fovRadius = 5, bool canExplore = true, 
-            double maxHp = 100, double hp = 100, double mp = 100, 
-            double atk = 5, double defense = 1, unsigned int spd = 1);
+            double maxHp = 100, double hp = 100, double maxMp = 100, 
+            double mp = 100, double atk = 5, double defense = 1, 
+            unsigned int spd = 2);
         
         ~Player() {};
         

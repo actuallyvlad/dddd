@@ -4,10 +4,11 @@
 Player::Player(unsigned int x, unsigned int y, unsigned int ch, 
     const TCODColor &color, std::string name, bool blocks, bool canDie,
     unsigned int fovRadius, bool canExplore, double maxHp, 
-    double hp, double mp, double atk, double defense, unsigned int spd) :
+    double hp, double maxMp, double mp, double atk, double defense, 
+    unsigned int spd) :
     
     Entity(x, y, ch, color, name, blocks, canDie, fovRadius, canExplore, maxHp, 
-    hp, mp, atk, defense, spd) {
+    hp, maxMp, mp, atk, defense, spd) {
 }
 
 void Player::update() {
@@ -79,7 +80,9 @@ bool Player::moveOrAttack(unsigned int target_x, unsigned int target_y) {
     for (const auto& entity : engine.entities) {
         if ( entity->canDie && entity->isDead() && entity->x == target_x 
             && entity->y == target_y) {
-            std::cout << "There's a " << entity->name << " here." << std::endl;
+            
+            engine.gui->message(TCODColor::white, {"There's a "s, entity->name,
+                " here.\n"s});
         }
     }
     
@@ -90,6 +93,6 @@ bool Player::moveOrAttack(unsigned int target_x, unsigned int target_y) {
 
 void Player::die() {
     Entity::die();
-    std::cout << "You died!" << std::endl;
+    engine.gui->message(TCODColor::white, {"You died!\n"s});
     engine.gameStatus = Engine::DEFEAT;
 }

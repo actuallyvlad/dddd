@@ -10,6 +10,9 @@
 #include "Player.hpp"
 #include "Room.hpp"
 #include "Map.hpp"
+#include "Gui.hpp"
 #include "Engine.hpp"
+
+using namespace std::string_literals;
 
 #endif

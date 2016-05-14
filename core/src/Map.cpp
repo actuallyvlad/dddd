@@ -116,23 +116,23 @@ void Map::placeObjects(Room &room) {
         
         if (chance < 20) {
             engine.entities.push(new Monster(free_x, free_y, 'z', 
-                colors::zombie, "zombie"));
+                colors::zombie, "Zombie"));
         }
         else if (chance < 40) {
             engine.entities.push(new Monster(free_x, free_y, 'w', 
-                colors::darkWizard, "dark_wizard"));
+                colors::darkWizard, "Dark Wizard"));
         }
         else if (chance < 60) {
             engine.entities.push(new Monster(free_x, free_y, 'i', 
-                colors::imp, "imp"));
+                colors::imp, "Imp"));
         }
         else if (chance < 80) {
             engine.entities.push(new Monster(free_x, free_y, 's', 
-                colors::skeletonArcher, "skeleton_archer"));
+                colors::skeletonArcher, "Skeleton Archer"));
         }
         else {
             engine.entities.push(new Monster(free_x, free_y, 'n', 
-                colors::poltergeist, "poltergeist"));
+                colors::poltergeist, "Poltergeist"));
         }
         
         --numOfMonsters;

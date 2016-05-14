@@ -8,21 +8,21 @@ Engine::Engine(unsigned int screenWidth, unsigned int screenHeight) :
     
     TCODConsole::initRoot(screenWidth, screenHeight, 
         "Downfall of the Darkest Destructive Doom", false);
+    
     TCODConsole::root->setDefaultBackground(colors::bgDefault);
     player = new Player(0, 0);
     entities.push(player);
     
-    Entity *npc = new Entity(60, 13, '@', colors::berserker, "npc");
+    map = new Map(80, 43);
+    gui = new Gui();
     
-    entities.push(npc);
-    map = new Map(80, 45);
     map->setFree(player->x, player->y);
-    map->setFree(npc->x, npc->y);
 }
 
 Engine::~Engine() {
     entities.clearAndDelete();
     delete map;
+    delete gui;
 }
 
 bool Engine::update() {
@@ -70,9 +70,7 @@ void Engine::render() {
     }
     
     player->render();
-    
-    TCODConsole::root->print(1, screenHeight - 2, "HP: %d / %d",
-        (int)player->hp, (int)player->maxHp);
+    gui->render();
 }
 
 void Engine::sendToBack(Entity *entity) {
