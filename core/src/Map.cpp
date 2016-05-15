@@ -146,27 +146,27 @@ void Map::placeMonsters(Room &room) {
         setFree(room, free_x, free_y);
         
         if (chance < 20) {
-            engine.entities.push(new Monster(free_x, free_y, 'z', 
+            engine.entities.push_back(new Monster(free_x, free_y, 'z', 
                 colors::zombie, "Zombie", true, true, 3, false,
                 50, 50, 20, 20, 8, 5, 1));
         }
         else if (chance < 40) {
-            engine.entities.push(new Monster(free_x, free_y, 'w', 
+            engine.entities.push_back(new Monster(free_x, free_y, 'w', 
                 colors::darkWizard, "Dark Wizard", true, true, 3, false,
                 50, 50, 50, 50, 10, 4, 1));
         }
         else if (chance < 60) {
-            engine.entities.push(new Monster(free_x, free_y, 'i', 
+            engine.entities.push_back(new Monster(free_x, free_y, 'i', 
                 colors::imp, "Imp", true, true, 3, false, 40, 40,
                 40, 40, 6, 4, 2));
         }
         else if (chance < 80) {
-            engine.entities.push(new Monster(free_x, free_y, 's', 
+            engine.entities.push_back(new Monster(free_x, free_y, 's', 
                 colors::skeletonArcher, "Skeleton Archer", true, true, 4, 
                 false, 50, 50, 10, 10, 5, 5, 2));
         }
         else {
-            engine.entities.push(new Monster(free_x, free_y, 'n', 
+            engine.entities.push_back(new Monster(free_x, free_y, 'n', 
                 colors::poltergeist, "Poltergeist", false, true, 3, false,
                 40, 40, 20, 20, 8, 10, 1));
         }

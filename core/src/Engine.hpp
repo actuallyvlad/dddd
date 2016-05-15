@@ -1,6 +1,8 @@
 #ifndef ENGINE_HPP
 #define ENGINE_HPP
 
+#include <vector>
+
 class Engine {
     public:
         enum GameStatus {
@@ -15,7 +17,7 @@ class Engine {
         unsigned int screenHeight;
         Gui *gui;
         TCOD_key_t lastKey;
-        TCODList<Entity *> entities;
+        std::vector<Entity *> entities;
         Container *items;
         Player *player;
         Map *map;

@@ -1,4 +1,5 @@
 #include "main.hpp"
+#include <algorithm>
 #include <unistd.h>
 
 Engine::Engine(unsigned int screenWidth, unsigned int screenHeight) : 
@@ -40,14 +41,20 @@ Engine::Engine(unsigned int screenWidth, unsigned int screenHeight) :
 void Engine::init() {
     items = new Container(-1);
     player = new Player(0, 0);
-    entities.push(player);
+    entities.push_back(player);
     TCODConsole::root->setDefaultBackground(colors::bgDefault);
     map = new Map(80, 43);
     map->setFree(player->x, player->y);
 }
 
 void Engine::term() {
-    entities.clearAndDelete();
+    if ( entities.size() ) {
+        for ( const auto& entity : entities ) {
+            delete entity;
+        }
+        
+        entities.clear();
+    }
     
     if ( items->inventory.size() ) {
         delete items;
@@ -86,6 +93,7 @@ bool Engine::update() {
             return false;
         default:
             player->update();
+            break;
     }
     
     if (gameStatus == NEW_TURN) {
@@ -252,6 +260,13 @@ Entity* Engine::getClosestMonster(unsigned int x, unsigned int y,
 }
 
 void Engine::sendToBack(Entity *entity) {
-    entities.remove(entity);
-    entities.insertBefore(entity, 0);
+    for ( const auto& tmp : entities ) {
+        if ( tmp == entity ) {
+            entities.erase(std::remove(entities.begin(), entities.end(), 
+                entity), entities.end());
+            break;
+        }
+    }
+    
+    entities.insert(entities.begin(), entity);
 }

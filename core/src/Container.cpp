@@ -28,6 +28,7 @@ void Container::remove(Item* item) {
         if ( tmp == item ) {
             inventory.erase(std::remove(inventory.begin(), inventory.end(), 
                 item), inventory.end());
+            break;
         }
     }
 }
