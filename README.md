@@ -1,6 +1,8 @@
 # Downfall of the Darkest Destructive Doom (CPP)
  DDDDCPP is a port of the DDDD to C++, using libtcod.
 
+![sample screenshot](screenshots/rand_lvl.png)
+
 ## Controls
 
 |         Movement       | Pick up item | Inventory |    Fullscreen    | Exit |
