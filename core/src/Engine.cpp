@@ -1,4 +1,5 @@
 #include "main.hpp"
+#include <unistd.h>
 
 Engine::Engine(unsigned int screenWidth, unsigned int screenHeight) : 
     gameStatus(STARTUP), screenWidth(screenWidth), screenHeight(screenHeight) {
@@ -9,20 +10,58 @@ Engine::Engine(unsigned int screenWidth, unsigned int screenHeight) :
     TCODConsole::initRoot(screenWidth, screenHeight, 
         "Downfall of the Darkest Destructive Doom", false);
     
-    TCODConsole::root->setDefaultBackground(colors::bgDefault);
-    player = new Player(0, 0);
-    entities.push(player);
-    items = new Container(-1);
-    map = new Map(80, 43);
     gui = new Gui();
     
+    static TCODImage img2("images/menu_background_2.png");
+    static TCODImage img3("images/menu_background_3.png");
+    
+    engine.gui->menu.clear();
+    engine.gui->menu.addItem(Menu::NEW_GAME, "New game");
+    engine.gui->menu.addItem(Menu::EXIT, "Exit");
+    Menu::MenuItemCode menuItem = engine.gui->menu.pick();
+    
+    if ( menuItem == Menu::EXIT || menuItem == Menu::NONE ) {
+        exit(0);
+    }
+    else {
+        img2.blit2x(TCODConsole::root, 0, 0);
+        TCODConsole::flush();
+        sleep(1);
+        img3.blit2x(TCODConsole::root, 0, 0);
+        TCODConsole::flush();
+        sleep(2);
+        img2.blit2x(TCODConsole::root, 0, 0);
+        TCODConsole::flush();
+        sleep(1);
+        engine.init();
+    }
+}
+
+void Engine::init() {
+    items = new Container(-1);
+    player = new Player(0, 0);
+    entities.push(player);
+    TCODConsole::root->setDefaultBackground(colors::bgDefault);
+    map = new Map(80, 43);
     map->setFree(player->x, player->y);
 }
 
-Engine::~Engine() {
+void Engine::term() {
     entities.clearAndDelete();
-    delete items;
-    delete map;
+    
+    if ( items->inventory.size() ) {
+        delete items;
+    }
+    
+    if ( map ) {
+        delete map;
+    }
+    
+    gui->clear();
+}
+
+Engine::~Engine() {
+    term();
     delete gui;
 }
 
@@ -83,11 +122,10 @@ void Engine::render() {
 bool Engine::pickATile(unsigned int &x, unsigned int &y, double maxRange) {
     TCOD_key_t targetKey;
     
-    Object *target = new Object(player->x, player->y, '^', TCODColor::red,
+    Object *target = new Object(player->x, player->y, '+', TCODColor::red,
         "target", false);
     
     while ( targetKey.vk != TCODK_ENTER ) {
-        TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &targetKey, NULL);
         render();
         
         for ( const auto& tile : player->fov ) {
@@ -97,7 +135,7 @@ bool Engine::pickATile(unsigned int &x, unsigned int &y, double maxRange) {
                 TCODColor color = TCODConsole::root->getCharBackground(tile.first,
                     tile.second);
                 
-                color = color * TCODColor::red;
+                color = color + TCODColor::lightRed * 0.1;
                 
                 TCODConsole::root->setCharBackground(tile.first, tile.second, color);
             }
@@ -110,6 +148,7 @@ bool Engine::pickATile(unsigned int &x, unsigned int &y, double maxRange) {
         }
         
         TCODConsole::flush();
+        TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &targetKey, NULL);
         
         switch(targetKey.vk) {
             case TCODK_CHAR:

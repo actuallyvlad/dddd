@@ -13,7 +13,90 @@ Gui::Gui() {
 
 Gui::~Gui() {
     delete console;
+    clear();
+}
+
+void Gui::clear() {
     log.clearAndDelete();
+}
+
+Menu::~Menu() {
+    clear();
+}
+
+void Menu::clear() {
+    for ( const auto& item : items ) {
+        delete item;
+    }
+    
+    items.clear();
+}
+
+void Menu::addItem(MenuItemCode code, std::string label) {
+    MenuItem *item = new MenuItem();
+    item->code = code;
+    item->label = label;
+    items.push_back(item);
+}
+
+Menu::MenuItemCode Menu::pick() {
+    static TCODImage img1("images/menu_background_1.png");
+    
+    int selectedItem = 0;
+    
+    while ( !TCODConsole::isWindowClosed() ) {
+        img1.blit2x(TCODConsole::root, 0, 0);
+        TCODConsole::root->setDefaultForeground(TCODColor::lightGrey);
+        TCODConsole::root->print(20, 2, 
+            "Downfall of the Darkest Destructive Doom");
+        
+        int currentItem = 0;
+        
+        for ( const auto& item : items ) {
+            if ( currentItem == selectedItem ) {
+                TCODConsole::root->setDefaultForeground(TCODColor::lighterOrange);
+            }
+            else {
+                TCODConsole::root->setDefaultForeground(TCODColor::lightGrey);
+            }
+            
+            TCODConsole::root->print(10, 10 + currentItem * 3, 
+                item->label.c_str());
+            
+            ++currentItem;
+        }
+        
+        TCODConsole::flush();
+        
+        TCOD_key_t key;
+        TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL);
+        
+        switch(key.vk) {
+            case TCODK_CHAR:
+                switch(key.c) {
+                    case 'w':
+                        --selectedItem;
+                        
+                        if ( selectedItem < 0 ) {
+                            selectedItem = items.size() - 1;
+                        }
+                        
+                        break;
+                    
+                    case 'x':
+                        selectedItem = (selectedItem + 1) % items.size();
+                        break;
+                }
+                
+                break;
+            case TCODK_ENTER:
+                return items[selectedItem]->code;
+            default:
+                break;
+        }
+    }
+    
+    return NONE;
 }
 
 void Gui::render() {

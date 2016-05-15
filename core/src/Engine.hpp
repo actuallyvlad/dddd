@@ -26,6 +26,8 @@ class Engine {
         
         ~Engine();
         
+        void init();
+        void term();
         void render();
         bool update();
         bool pickATile(unsigned int &x, unsigned int &y, 

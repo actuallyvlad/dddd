@@ -3,11 +3,37 @@
 
 #include <initializer_list>
 
+class Menu {
+    public:
+        enum MenuItemCode {
+            NONE,
+            NEW_GAME,
+            EXIT
+        };
+        
+        ~Menu();
+        
+        void clear();
+        void addItem(MenuItemCode code, std::string label);
+        MenuItemCode pick();
+    protected:
+        struct MenuItem {
+            MenuItemCode code;
+            std::string label;
+        };
+        
+        std::vector<MenuItem *> items;
+};
+
 class Gui {
     public:
         Gui();
         ~Gui();
+        
+        Menu menu;
+        
         void render();
+        void clear();
         void message(const TCODColor &color, 
             std::initializer_list<std::string> text);
     
