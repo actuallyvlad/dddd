@@ -12,7 +12,7 @@ Engine::Engine(unsigned int screenWidth, unsigned int screenHeight) :
     TCODConsole::root->setDefaultBackground(colors::bgDefault);
     player = new Player(0, 0);
     entities.push(player);
-    
+    items = new Container(-1);
     map = new Map(80, 43);
     gui = new Gui();
     
@@ -21,6 +21,7 @@ Engine::Engine(unsigned int screenWidth, unsigned int screenHeight) :
 
 Engine::~Engine() {
     entities.clearAndDelete();
+    delete items;
     delete map;
     delete gui;
 }
@@ -63,10 +64,16 @@ void Engine::render() {
     TCODConsole::root->clear();
     map->render(*player, updateFOV);
     
+    for (const auto& item : items->inventory) {
+        if ( item->onMap && player->canSee(item->x, item->y) ) {
+            item->render();
+        }
+    }
+    
     for (const auto& entity : entities) {
-            if ( entity != player && player->canSee(entity->x, entity->y) ) {
-                entity->render();
-            }
+        if ( entity != player && player->canSee(entity->x, entity->y) ) {
+            entity->render();
+        }
     }
     
     player->render();

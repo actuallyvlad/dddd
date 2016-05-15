@@ -6,6 +6,7 @@ static const unsigned int ROOM_MAX_SIZE = 15;
 static const unsigned int ROOM_MIN_SIZE = 6;
 static const unsigned int MAX_ROOMS = 20;
 static const unsigned int MAX_ROOM_MONSTERS = 3;
+static const unsigned int MAX_ROOM_ITEMS = 2;
 
 Tile::Tile(bool canWalk, bool blockSight, bool explored, tileType type) :
     canWalk(canWalk), blockSight(canWalk || blockSight), explored(explored),
@@ -45,7 +46,8 @@ Map::Map(unsigned int width, unsigned int height) :
         
         if ( !overlap ) {
             digRoom((*rooms)[num_rooms]);
-            placeObjects((*rooms)[num_rooms]);
+            placeItems((*rooms)[num_rooms]);
+            placeMonsters((*rooms)[num_rooms]);
             
             if (num_rooms > 0) {
                 (*rooms)[num_rooms].getCenter(cur_cx, cur_cy);
@@ -104,7 +106,22 @@ bool Map::canWalk(unsigned int x, unsigned int y) const {
     return true;
 }
 
-void Map::placeObjects(Room &room) {
+void Map::placeItems(Room &room) {
+    TCODRandom *rng = TCODRandom::getInstance();
+    int numOfItems = rng->getInt(0, MAX_ROOM_ITEMS);
+    unsigned int free_x = 0;
+    unsigned int free_y = 0;
+    
+    while (numOfItems > 0) {
+        setFree(room, free_x, free_y);
+        engine.items->inventory.emplace_back(new Healer(free_x, free_y, '!', 
+            TCODColor::violet, "health potion", false, true, 15));
+        
+        --numOfItems;
+    }
+}
+
+void Map::placeMonsters(Room &room) {
     TCODRandom *rng = TCODRandom::getInstance();
     unsigned int numOfMonsters = rng->getInt(0, MAX_ROOM_MONSTERS);
     unsigned int free_x = 0;

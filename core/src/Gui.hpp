@@ -1,3 +1,6 @@
+#ifndef GUI_HPP
+#define GUI_HPP
+
 #include <initializer_list>
 
 class Gui {
@@ -23,3 +26,5 @@ class Gui {
             std::string name, double value, double maxValue, 
             const TCODColor &barColor, const TCODColor &backColor);
 };
+
+#endif

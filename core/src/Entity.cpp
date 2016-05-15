@@ -5,11 +5,16 @@ Entity::Entity(unsigned int x, unsigned int y, unsigned int ch,
     const TCODColor &color, std::string name, bool blocks, bool canDie,
     unsigned int fovRadius, bool canExplore, double maxHp, 
     double hp, double maxMp, double mp, double atk, double defense, 
-    unsigned int spd) :
+    unsigned int spd, unsigned int bagSize) :
     
     Object(x, y, ch, color, name, blocks), canDie(canDie), fovRadius(fovRadius), 
     canExplore(canExplore), maxHp(maxHp), hp(hp), maxMp(maxMp), mp(mp), atk(atk), 
-    defense(defense), spd(spd) {
+    defense(defense), spd(spd), bagSize(bagSize) {
+        bag = new Container(bagSize);
+}
+
+Entity::~Entity() {
+    delete bag;
 }
 
 bool Entity::canSee(unsigned int x, unsigned int y) const {
@@ -83,10 +88,30 @@ double Entity::takeDamage(double damage) {
     return damage;
 }
 
+double Entity::heal(double amount) {
+    hp += amount;
+    
+    if ( hp > maxHp ) {
+        amount -= hp - maxHp;
+        hp = maxHp;
+    }
+    
+    return amount;
+}
+
 void Entity::die() {
     ch = '%';
     color = TCODColor::darkRed;
     name = name + " corpse";
     blocks = false;
+    
+    if ( bag->inventory.size() > 0) {
+        for ( const auto& item : bag->inventory ) {
+            item->x = x;
+            item->y = y;
+            item->onMap = true;
+        }
+    }
+    
     engine.sendToBack(this);
 }

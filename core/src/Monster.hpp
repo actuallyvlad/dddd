@@ -9,9 +9,10 @@ class Monster : public Entity {
             bool canDie = true, unsigned int fovRadius = 5, 
             bool canExplore = false, double maxHp = 20, double hp = 20, 
             double maxMp = 20, double mp = 20, double atk = 2, 
-            double defense = 0, unsigned int spd = 1);
+            double defense = 0, unsigned int spd = 1, 
+            unsigned int bagSize = 5);
         
-        ~Monster() {};
+        ~Monster() { };
         
         void update();
         void die();

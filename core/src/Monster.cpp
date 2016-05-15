@@ -8,10 +8,10 @@ Monster::Monster(unsigned int x, unsigned int y, unsigned int ch,
     const TCODColor &color, std::string name, bool blocks, bool canDie,
     unsigned int fovRadius, bool canExplore, double maxHp, 
     double hp, double maxMp, double mp, double atk, double defense, 
-    unsigned int spd) :
+    unsigned int spd, unsigned int bagSize) :
     
     Entity(x, y, ch, color, name, blocks, canDie, fovRadius, canExplore, maxHp, 
-    hp, maxMp, mp, atk, defense, spd) {
+    hp, maxMp, mp, atk, defense, spd, bagSize) {
 }
 
 void Monster::update() {
@@ -61,6 +61,6 @@ void Monster::moveOrAttack(unsigned int target_x, unsigned int target_y) {
 }
 
 void Monster::die() {
-    engine.gui->message(TCODColor::white, {"You killed "s, name, ".\n"s});
+    engine.gui->message(TCODColor::white, {"You killed "s, name, ".\n"s});    
     Entity::die();
 }

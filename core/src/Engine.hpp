@@ -16,6 +16,7 @@ class Engine {
         Gui *gui;
         TCOD_key_t lastKey;
         TCODList<Entity *> entities;
+        Container *items;
         Player *player;
         Map *map;
         bool updateFOV;

@@ -12,7 +12,7 @@ class Player : public Entity {
             unsigned int fovRadius = 5, bool canExplore = true, 
             double maxHp = 100, double hp = 100, double maxMp = 100, 
             double mp = 100, double atk = 5, double defense = 1, 
-            unsigned int spd = 2);
+            unsigned int spd = 2, unsigned int bagSize = 26);
         
         ~Player() {};
         
@@ -21,6 +21,9 @@ class Player : public Entity {
     
     protected:
         bool moveOrAttack(unsigned int target_x, unsigned int target_y);
+        void handleActionKey(int key);
+        Item* chooseFromInventory();
+        void handleActionKey(unsigned int key);
 };
 
 #endif

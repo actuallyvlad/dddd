@@ -5,6 +5,8 @@
 #include "fovmath.hpp"
 #include "colors.hpp"
 #include "Object.hpp"
+#include "Item.hpp"
+#include "Container.hpp"
 #include "Entity.hpp"
 #include "Monster.hpp"
 #include "Player.hpp"

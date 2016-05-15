@@ -2,8 +2,8 @@
 #define MAP_HPP
 
 #include <vector>
-#include "Room.hpp"
-#include "Entity.hpp"
+class Room;
+class Entity;
 
 struct Tile {
     bool canWalk;
@@ -40,10 +40,10 @@ class Map {
         void digRoom(const Room &room);
         void digHTunnel(unsigned int x1, unsigned int x2, unsigned int y);
         void digVTunnel(unsigned int y1, unsigned int y2, unsigned int x);
-        void placeObjects(Room &room);
+        void placeItems(Room &room);
+        void placeMonsters(Room &room);
         void setWall(unsigned int x, unsigned int y);
         void setGround(unsigned int x, unsigned int y);
-        //void placeObjects(const Room &room);
 };
 
 #endif
