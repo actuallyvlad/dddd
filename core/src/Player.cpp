@@ -82,7 +82,8 @@ void Player::handleActionKey(int key) {
                         
                         if (item->pick(*this)) {
                             engine.gui->message(TCODColor::lightGrey, 
-                                {"You pick up the "s, item->name, "."s});
+                                {"You pick up a "s, item->name, "."s});
+                            engine.items->remove(item);
                         }
                         else {
                             engine.gui->message(TCODColor::red, 

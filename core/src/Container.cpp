@@ -20,7 +20,6 @@ bool Container::add(Item* item) {
     }
     
     inventory.push_back(item);
-    engine.items->remove(item);
     return true;
 }
 

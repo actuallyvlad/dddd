@@ -34,6 +34,7 @@ class Entity : public Object {
         inline virtual void update() { }; //printf("%s whistles.\n", name);
         bool canSee(unsigned int x, unsigned int y) const;
         bool moveOrAttack(unsigned int x, unsigned int y);
+        double getDistance(unsigned int target_x, unsigned int target_y);
         double takeDamage(double damage);
         double heal(double amount);
         void attack(Entity &target);

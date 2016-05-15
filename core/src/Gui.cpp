@@ -5,7 +5,7 @@ static const unsigned int BAR_WIDTH = 20;
 // message x position
 static const unsigned int MSG_X = BAR_WIDTH + 2;
 static const unsigned int MSG_HEIGHT = PANEL_HEIGHT;
-static const unsigned int MSG_WIDTH = engine.screenWidth - BAR_WIDTH;
+static const unsigned int MSG_WIDTH = engine.screenWidth - MSG_X;
 
 Gui::Gui() {
     console = new TCODConsole(engine.screenWidth, PANEL_HEIGHT);
@@ -83,9 +83,9 @@ void Gui::message(const TCODColor &color,
     
     for (size_t i = 0; i < buffer.length(); ++i) {
         if (i % MSG_WIDTH == 0 && i != 0) {
-            Message *msg = new Message(buffer.substr(last_pos, i), color);
+            Message *msg = new Message(buffer.substr(last_pos, MSG_WIDTH), color);
             log.push(msg);
-            last_pos = i + 1;
+            last_pos = i;
         }
     }
     

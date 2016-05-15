@@ -26,8 +26,12 @@ class Engine {
         
         ~Engine();
         
-        bool update();
         void render();
+        bool update();
+        bool pickATile(unsigned int &x, unsigned int &y, 
+            double maxRange = 0.0);
+        Entity* getClosestMonster(unsigned int x, unsigned int y, 
+            double range) const;
         void sendToBack(Entity *entity);
 };
 

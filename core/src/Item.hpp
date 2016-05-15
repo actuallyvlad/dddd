@@ -12,7 +12,7 @@ class Item : public Object {
         
         virtual ~Item() {};
         
-        bool pick(Entity &wearer);
+        virtual bool pick(Entity &wearer);
         virtual bool use(Entity &wearer);
 };
 
@@ -25,6 +25,27 @@ class Healer : public Item {
             double amount);
         ~Healer() {};
         
+        bool use(Entity &wearer);
+};
+
+class LightningBolt : public Item {
+    public:
+        double range;
+        double damage;
+        
+        LightningBolt(unsigned int x, unsigned int y, unsigned int ch, 
+            const TCODColor &color, std::string name, bool blocks, bool onMap,
+            double range, double damage);
+        
+        bool use(Entity &wearer);
+};
+
+class Fireball : public LightningBolt {
+    public:
+        
+        Fireball(unsigned int x, unsigned int y, unsigned int ch, 
+            const TCODColor &color, std::string name, bool blocks, bool onMap,
+            double range, double damage);
         bool use(Entity &wearer);
 };
 

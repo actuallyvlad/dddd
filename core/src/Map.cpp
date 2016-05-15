@@ -108,14 +108,28 @@ bool Map::canWalk(unsigned int x, unsigned int y) const {
 
 void Map::placeItems(Room &room) {
     TCODRandom *rng = TCODRandom::getInstance();
-    int numOfItems = rng->getInt(0, MAX_ROOM_ITEMS);
+    unsigned int numOfItems = rng->getInt(0, MAX_ROOM_ITEMS);
     unsigned int free_x = 0;
     unsigned int free_y = 0;
     
-    while (numOfItems > 0) {
+    while ( numOfItems > 0 ) {
+        unsigned int chance = rng->getInt(0, 100);
         setFree(room, free_x, free_y);
-        engine.items->inventory.emplace_back(new Healer(free_x, free_y, '!', 
-            TCODColor::violet, "health potion", false, true, 15));
+        
+        if ( chance < 30 ) {
+            engine.items->inventory.push_back(new Healer(free_x, free_y, '!', 
+                TCODColor::violet, "health potion", false, true, 15));
+        }
+        else if ( chance < 45 ) {
+            engine.items->inventory.push_back(new LightningBolt(free_x, 
+                free_y, '?', TCODColor::lightYellow, "scroll of lightning bolt",
+                false, true, 5, 15));
+        }
+        else {
+            engine.items->inventory.push_back(new Fireball(free_x, 
+                free_y, '?', TCODColor::lightYellow, "scroll of fireball",
+                false, true, 5, 10));
+        }
         
         --numOfItems;
     }

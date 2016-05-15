@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <cmath>
 #include "main.hpp"
 
 Entity::Entity(unsigned int x, unsigned int y, unsigned int ch, 
@@ -27,6 +27,13 @@ bool Entity::canSee(unsigned int x, unsigned int y) const {
     return false;
 }
 
+double Entity::getDistance(unsigned int target_x, unsigned int target_y) {
+    int dx =  x - target_x;
+    int dy = y - target_y;
+    
+    return sqrt(dx*dx + dy*dy);
+}
+
 bool Entity::moveOrAttack(unsigned int x, unsigned int y) {
     if ( engine.map->isWall(x, y) ) {
         return false;
@@ -34,8 +41,8 @@ bool Entity::moveOrAttack(unsigned int x, unsigned int y) {
     
     for (const auto& entity : engine.entities) {
         if (entity->x == x && entity->y == y) {
-            //printf("The %s laughs at your puny efforts to attack him!\n", 
-            //    entity->name);
+            engine.gui->message(TCODColor::white, {"The "s, name, 
+                " laughs at your puny efforts to attack him!\n"s});
             return false;
         }
     }
