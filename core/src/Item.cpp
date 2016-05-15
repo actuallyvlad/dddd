@@ -1,3 +1,4 @@
+#include <cmath>
 #include "main.hpp"
 
 Item::Item(unsigned int x, unsigned int y, unsigned int ch, 
@@ -74,7 +75,7 @@ bool LightningBolt::use(Entity &wearer) {
     engine.gui->message(TCODColor::lightBlue, {"A lightning bolt strikes the "s,
             closestMonster->name, " with a loud thunder!\n"s,});
     engine.gui->message(TCODColor::lightBlue, {"The damage is "s, 
-        std::to_string((int)damage), " hit points.\n"s});
+        std::to_string((int) round(damage)), " hit points.\n"s});
     
     closestMonster->takeDamage(damage);
     
@@ -94,20 +95,20 @@ bool Fireball::use(Entity &wearer) {
     unsigned int x = 0;
     unsigned int y = 0;
     
-    if ( !engine.pickATile(x, y) ) {
+    if ( !engine.pickATile(x, y, wearer.fovRadius) ) {
         return false;
     }
     
     engine.gui->message(TCODColor::orange, 
         {"The fireball explodes, burning everything within "s, 
-        std::to_string((int) range), " tiles!\n"s});
+        std::to_string((int) round(range)), " tiles!\n"s});
     
     for ( const auto& entity : engine.entities ) {
         if ( entity->canDie && !entity->isDead() 
             && entity->getDistance(x, y) <= range ) {
             
             engine.gui->message(TCODColor::orange, {"The "s, entity->name, 
-                " gets burned for "s, std::to_string( (int) damage ), 
+                " gets burned for "s, std::to_string( (int) round(damage) ), 
                 " hit points.\n"s});
             
             entity->takeDamage(damage);

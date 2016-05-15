@@ -118,7 +118,7 @@ void Map::placeItems(Room &room) {
         
         if ( chance < 30 ) {
             engine.items->inventory.push_back(new Healer(free_x, free_y, '!', 
-                TCODColor::violet, "health potion", false, true, 15));
+                TCODColor::violet, "health potion", false, true, 25));
         }
         else if ( chance < 45 ) {
             engine.items->inventory.push_back(new LightningBolt(free_x, 
@@ -128,7 +128,7 @@ void Map::placeItems(Room &room) {
         else {
             engine.items->inventory.push_back(new Fireball(free_x, 
                 free_y, '?', TCODColor::lightYellow, "scroll of fireball",
-                false, true, 5, 10));
+                false, true, 5, 50));
         }
         
         --numOfItems;
@@ -147,23 +147,28 @@ void Map::placeMonsters(Room &room) {
         
         if (chance < 20) {
             engine.entities.push(new Monster(free_x, free_y, 'z', 
-                colors::zombie, "Zombie"));
+                colors::zombie, "Zombie", true, true, 3, false,
+                50, 50, 20, 20, 8, 5, 1));
         }
         else if (chance < 40) {
             engine.entities.push(new Monster(free_x, free_y, 'w', 
-                colors::darkWizard, "Dark Wizard"));
+                colors::darkWizard, "Dark Wizard", true, true, 3, false,
+                50, 50, 50, 50, 10, 4, 1));
         }
         else if (chance < 60) {
             engine.entities.push(new Monster(free_x, free_y, 'i', 
-                colors::imp, "Imp"));
+                colors::imp, "Imp", true, true, 3, false, 40, 40,
+                40, 40, 6, 4, 2));
         }
         else if (chance < 80) {
             engine.entities.push(new Monster(free_x, free_y, 's', 
-                colors::skeletonArcher, "Skeleton Archer"));
+                colors::skeletonArcher, "Skeleton Archer", true, true, 4, 
+                false, 50, 50, 10, 10, 5, 5, 2));
         }
         else {
             engine.entities.push(new Monster(free_x, free_y, 'n', 
-                colors::poltergeist, "Poltergeist"));
+                colors::poltergeist, "Poltergeist", false, true, 3, false,
+                40, 40, 20, 20, 8, 10, 1));
         }
         
         --numOfMonsters;
