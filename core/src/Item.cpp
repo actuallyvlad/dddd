@@ -16,6 +16,18 @@ bool Item::pick(Entity &wearer) {
     return false;
 }
 
+void Item::drop(Entity &wearer) {
+    if ( wearer.bag->inventory.size() > 0 ) {
+        wearer.bag->remove(this);
+        this->x = wearer.x;
+        this->y = wearer.y;
+        this->onMap = true;
+        engine.items->inventory.push_back(this);
+        engine.gui->message(TCODColor::lightGrey, {wearer.name, " drops a "s,
+            this->name, ".\n"s});
+    }
+}
+
 bool Item::use(Entity &wearer) {
     if ( wearer.bag->inventory.size() > 0 ) {
         wearer.bag->remove(this);

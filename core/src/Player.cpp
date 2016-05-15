@@ -100,7 +100,16 @@ void Player::handleActionKey(int key) {
                 engine.gameStatus = Engine::NEW_TURN;
             }
             break;
-        
+            
+        case 'r': {
+                Item *item = chooseFromInventory();
+                if ( item ) {
+                    item->drop(*this);
+                    engine.gameStatus = Engine::NEW_TURN;
+                }
+            }
+            break;
+            
         case 'i': {
                 Item *item = chooseFromInventory();
                 

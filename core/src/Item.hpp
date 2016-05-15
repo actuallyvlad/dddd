@@ -14,6 +14,7 @@ class Item : public Object {
         
         virtual bool pick(Entity &wearer);
         virtual bool use(Entity &wearer);
+        virtual void drop(Entity &wearer);
 };
 
 class Healer : public Item {
