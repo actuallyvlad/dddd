@@ -3,9 +3,9 @@
 
 ## Controls
 
-|         Movement       |    Fullscreen    | Exit |
-|:----------------------:|:----------------:|:----:|
-| q, w, e, a, d, z, x, c | Left Alt + Enter | ESC |
+|         Movement       | Pick up item | Inventory |    Fullscreen    | Exit |
+|:----------------------:|:------------:|:---------:|:----------------:|:----:|
+| q, w, e, a, d, z, x, c |       s      |     i     | Left Alt + Enter | Esc  |
 
 ## Fonts
 
