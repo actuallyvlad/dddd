@@ -5,9 +5,9 @@
 
 ## Controls
 
-|         Movement       | Pick up item | Inventory |    Fullscreen    | Exit |
-|:----------------------:|:------------:|:---------:|:----------------:|:----:|
-| q, w, e, a, d, z, x, c |       s      |     i     | Left Alt + Enter | Esc  |
+|         Movement       | Pick up item | Drop item | Inventory |    Fullscreen    | Exit |
+|:----------------------:|:------------:|:---------:|:---------:|:----------------:|:----:|
+| q, w, e, a, d, z, x, c |       s      |     r     |     i     | Left Alt + Enter | Esc  |
 
 ## Fonts
 
