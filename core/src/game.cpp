@@ -11,5 +11,11 @@ int main() {
         TCODConsole::flush();
     }
     
+    while ( !TCODConsole::isWindowClosed() ) {
+        TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &engine.lastKey, NULL);
+        if (engine.lastKey.vk == TCODK_ENTER || engine.lastKey.vk == TCODK_ESCAPE) {
+            break;
+        }
+    }
     return 0;
 }

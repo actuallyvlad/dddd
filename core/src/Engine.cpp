@@ -96,12 +96,33 @@ bool Engine::update() {
             break;
     }
     
+    unsigned int deadMonsters = 0;
+    
     if (gameStatus == NEW_TURN) {
         for (const auto& entity : entities) {
                 if ( entity != player ) {
                     entity->update();
                 }
+                if ( entity->isDead() ) {
+                    ++deadMonsters;
+                }
         }
+        
+        if ( deadMonsters == entities.size() - 1 ) {
+            gameStatus = VICTORY;
+        }
+    }
+    
+    if ( engine.gameStatus == Engine::VICTORY ) {
+        gui->message(TCODColor::green, 
+            {"You killed all monsters.\n"s});
+        gui->render();
+        return false;
+    }
+    else if ( engine.gameStatus == Engine::DEFEAT ) {
+        gui->message(TCODColor::red, {"You have been defeated.\n"s});
+        gui->render();
+        return false;
     }
     
     return true;
