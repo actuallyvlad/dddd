@@ -20,7 +20,7 @@ debug : dddd
 release : dddd
 
 dddd : $(OBJS)
-	g++ $(OBJS) -o dddd -Wall $(LIBFLAGS) $(CFLAGS)
+	g++ $(OBJS) -o build/dddd -Wall $(LIBFLAGS) $(CFLAGS)
 
 src/main.hpp.gch : src/*.hpp
 	g++ src/main.hpp -Iinclude -Wall
