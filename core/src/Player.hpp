@@ -10,8 +10,8 @@ class Player : public Entity {
             const TCODColor &color = colors::player, std::string name = "Player", 
             bool blocks = true, bool canDie = true, 
             unsigned int fovRadius = 5, bool canExplore = true, 
-            double maxHp = 150, double hp = 150, double maxMp = 100, 
-            double mp = 100, double atk = 8, double defense = 5, 
+            double maxHp = 100, double hp = 100, double maxMp = 100, 
+            double mp = 100, double atk = 15, double defense = 7, 
             unsigned int spd = 1, unsigned int bagSize = 26);
         
         ~Player() {};

@@ -113,13 +113,13 @@ bool Engine::update() {
         }
     }
     
-    if ( engine.gameStatus == Engine::VICTORY ) {
+    if ( gameStatus == VICTORY ) {
         gui->message(TCODColor::green, 
             {"You killed all monsters.\n"s});
         gui->render();
         return false;
     }
-    else if ( engine.gameStatus == Engine::DEFEAT ) {
+    else if ( gameStatus == DEFEAT ) {
         gui->message(TCODColor::red, {"You have been defeated.\n"s});
         gui->render();
         return false;
