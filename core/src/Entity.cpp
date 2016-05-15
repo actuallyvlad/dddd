@@ -120,5 +120,7 @@ void Entity::die() {
         }
     }
     
-    engine.sendToBack(this);
+    if ( this != engine.player ) {
+        engine.sendToBack(this);
+    }
 }
