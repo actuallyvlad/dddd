@@ -72,7 +72,7 @@ Engine::~Engine() {
     delete gui;
 }
 
-bool Engine::update() {
+bool Engine::update() {    
     TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &lastKey, NULL);
     updateFOV = false;
     
@@ -98,7 +98,7 @@ bool Engine::update() {
     
     unsigned int deadMonsters = 0;
     
-    if (gameStatus == NEW_TURN) {
+    if ( gameStatus == NEW_TURN ) {
         for (const auto& entity : entities) {
                 if ( entity != player ) {
                     entity->update();
@@ -113,15 +113,13 @@ bool Engine::update() {
         }
     }
     
-    if ( gameStatus == VICTORY ) {
-        gui->message(TCODColor::green, 
-            {"You killed all monsters.\n"s});
-        gui->render();
+    if ( gameStatus == DEFEAT ) {
+        gui->message(TCODColor::red, {"You have been defeated.\n"s});
         return false;
     }
-    else if ( gameStatus == DEFEAT ) {
-        gui->message(TCODColor::red, {"You have been defeated.\n"s});
-        gui->render();
+    
+    if ( gameStatus == VICTORY ) {
+        gui->message(TCODColor::green, {"You killed all monsters.\n"s});
         return false;
     }
     
@@ -139,7 +137,14 @@ void Engine::render() {
     }
     
     for (const auto& entity : entities) {
-        if ( entity != player && player->canSee(entity->x, entity->y) ) {
+        if ( player->canSee(entity->x, entity->y) && entity->isDead() ) {
+            entity->render();
+        }
+    }
+    
+    for (const auto& entity : entities) {
+        if ( entity != player && player->canSee(entity->x, entity->y) 
+            && !entity->isDead() ) {
             entity->render();
         }
     }
@@ -278,16 +283,4 @@ Entity* Engine::getClosestMonster(unsigned int x, unsigned int y,
     }
     
     return closest;
-}
-
-void Engine::sendToBack(Entity *entity) {
-    for ( const auto& tmp : entities ) {
-        if ( tmp == entity ) {
-            entities.erase(std::remove(entities.begin(), entities.end(), 
-                entity), entities.end());
-            break;
-        }
-    }
-    
-    entities.insert(entities.begin(), entity);
 }

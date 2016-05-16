@@ -115,7 +115,9 @@ void Player::handleActionKey(int key) {
                 
                 if ( item ) {
                     item->use(*this);
-                    engine.gameStatus = Engine::NEW_TURN;
+                    if (engine.gameStatus == Engine::IDLE) {
+                        engine.gameStatus = Engine::NEW_TURN;
+                    }
                 }
             }
             break;
@@ -126,7 +128,7 @@ void Player::handleActionKey(int key) {
 }
 
 Item* Player::chooseFromInventory() {
-    console.setDefaultBackground(TCODColor(200, 180, 50));
+    console.setDefaultBackground(TCODColor::darkRed);
     console.printFrame(0, 0, INVENTORY_WIDTH, INVENTORY_HEIGHT, true,
         TCOD_BKGND_DEFAULT, "Inventory");
     

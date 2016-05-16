@@ -119,8 +119,4 @@ void Entity::die() {
             item->onMap = true;
         }
     }
-    
-    if ( this != engine.player ) {
-        engine.sendToBack(this);
-    }
 }

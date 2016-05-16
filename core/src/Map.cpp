@@ -167,7 +167,7 @@ void Map::placeMonsters(Room &room) {
         }
         else {
             engine.entities.push_back(new Monster(free_x, free_y, 'n', 
-                colors::poltergeist, "Poltergeist", false, true, 3, false,
+                colors::poltergeist, "Poltergeist", true, true, 3, false,
                 40, 40, 20, 20, 8, 10, 1));
         }
         
