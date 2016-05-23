@@ -10,7 +10,7 @@ void Room::getCenter(unsigned int &cx, unsigned int &cy) {
     cy = (y + h) / 2;
 }
 
-bool Room::intersects(Room other_room) {
-    return (x <= other_room.w && w >= other_room.x
-            && y <= other_room.h && h >= other_room.y);
+bool Room::intersects(Room otherRoom) {
+    return (x <= otherRoom.w && w >= otherRoom.x
+            && y <= otherRoom.h && h >= otherRoom.y);
 }

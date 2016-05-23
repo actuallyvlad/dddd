@@ -1,6 +1,6 @@
 #include "main.hpp"
 
-Engine engine(80, 50);
+Engine engine(80, 40);
 
 int main() {
     bool running = true;

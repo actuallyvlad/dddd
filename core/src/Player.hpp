@@ -23,7 +23,6 @@ class Player : public Entity {
         bool moveOrAttack(unsigned int target_x, unsigned int target_y);
         void handleActionKey(int key);
         Item* chooseFromInventory();
-        void handleActionKey(unsigned int key);
 };
 
 #endif

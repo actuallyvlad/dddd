@@ -10,7 +10,7 @@ struct Room {
     Room(unsigned int x, unsigned int y, unsigned int dx, 
         unsigned int dy);
     void getCenter(unsigned int &x, unsigned int &y);
-    bool intersects(Room other_room);
+    bool intersects(Room otherRoom);
 };
 
 #endif

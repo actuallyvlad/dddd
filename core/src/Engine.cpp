@@ -43,7 +43,7 @@ void Engine::init() {
     player = new Player(0, 0);
     entities.push_back(player);
     TCODConsole::root->setDefaultBackground(colors::bgDefault);
-    map = new Map(80, 43);
+    map = new Map(80, 33);
     map->setFree(player->x, player->y);
 }
 

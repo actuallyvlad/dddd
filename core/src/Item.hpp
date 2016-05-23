@@ -43,10 +43,10 @@ class LightningBolt : public Item {
 
 class Fireball : public LightningBolt {
     public:
-        
         Fireball(unsigned int x, unsigned int y, unsigned int ch, 
             const TCODColor &color, std::string name, bool blocks, bool onMap,
             double range, double damage);
+        
         bool use(Entity &wearer);
 };
 

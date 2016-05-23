@@ -36,7 +36,6 @@ class Engine {
             double maxRange = 0.0);
         Entity* getClosestMonster(unsigned int x, unsigned int y, 
             double range) const;
-        void sendToBack(Entity *entity);
 };
 
 extern Engine engine;
