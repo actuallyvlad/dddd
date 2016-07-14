@@ -1,5 +1,5 @@
 # Downfall of the Darkest Destructive Doom (CPP)
- DDDDCPP is a port of the DDDD to C++, using libtcod.
+ DDDDCPP is a roguelike written in C++, using libtcod.
 
 ![menu](screenshots/menu.png)
 ![random generated level](screenshots/rand_lvl.png)
