@@ -1,4 +1,4 @@
-# Downfall of the Darkest Destructive Doom (CPP)
+# Downfall of the Darkest Destructive Doom
  DDDDCPP is a roguelike written in C++, using libtcod.
 
 ![menu](screenshots/menu.png)
